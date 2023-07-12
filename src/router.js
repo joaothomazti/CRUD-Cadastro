@@ -16,5 +16,9 @@ router.post('/register', registerController.registerUser);
 
 router.delete('/register/:id', registerController.deleteUser)
 
+//Alterar um dado do usuario
+
+router.put('/register/:id', registerController.alterUser)
+
 
 module.exports = router;
