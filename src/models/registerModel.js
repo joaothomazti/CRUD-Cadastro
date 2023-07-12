@@ -23,7 +23,7 @@ const registerUser = async (userData) => {
         }
         
     } catch(err) {
-        throw new Error('Erro ao registrar: ' +  err.message)
+        return { error: 'Erro ao registrar: ' + err.message }
     }
 };
 
