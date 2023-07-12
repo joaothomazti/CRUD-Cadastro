@@ -10,7 +10,7 @@ const getAllUsers = async () =>  {
         return {error: 'Erro ao buscar usuarios: ' + err.message}
     }
     
-}
+};
 
 const registerUser = async (userData) => {
     try {
@@ -34,8 +34,21 @@ const registerUser = async (userData) => {
     }
 };
 
+const deleteUser = async (id) => {
+    try {
+        const user = await User.destroy({
+            where: {id : id}
+        })
+    
+        return user
+    } catch (err) {
+        return {error: 'Erro ao deletar: ' + err.message}
+    }
+}
+
 
 module.exports = {
     registerUser,
-    getAllUsers
+    getAllUsers,
+    deleteUser
 };

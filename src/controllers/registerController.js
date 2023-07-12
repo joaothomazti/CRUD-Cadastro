@@ -28,10 +28,29 @@ const registerUser = async (req, res) => {
     
 }
 
+const deleteUser = async (req, res) => {
+    try {
+        const { id } = req.params
+
+        const user = await registerModel.deleteUser(id)
+
+        if(!user){
+            return res.status(400).json({error: 'Não foi possivel encontrar o id informado'})
+        }
+        return res.status(200).json({message: 'Usuario deletado com sucesso'});
+
+    } catch (err) {
+
+        return res.status(500).json({error: 'Erro interno do servidor ' + err.message})
+    }
+    
+}
+
 
 
 
 module.exports = {
     registerUser,
-    getAllUsers
+    getAllUsers,
+    deleteUser
 }
