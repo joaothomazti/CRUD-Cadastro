@@ -5,13 +5,11 @@ const registerController = require('./controllers/registerController');
 
 
 
-//Rotas 
-router.get('/register', (req, res) => {
-    res.send('Ola')
-})
+//Busca Todos Usuarios cadastrados
+router.get('/register', registerController.getAllUsers)
 
 
-//Criar um usuario
+//Criar novo usuario
 router.post('/register', registerController.registerUser);
 
 

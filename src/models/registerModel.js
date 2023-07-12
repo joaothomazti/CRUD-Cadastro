@@ -2,6 +2,16 @@ const User = require('./users')
 const {Op} = require('sequelize')
 
 
+const getAllUsers = async () =>  {
+    try {
+        const users = await User.findAll()
+        return users
+    } catch(err) {
+        return {error: 'Erro ao buscar usuarios: ' + err.message}
+    }
+    
+}
+
 const registerUser = async (userData) => {
     try {
         const {username, email, password} = userData
@@ -15,12 +25,9 @@ const registerUser = async (userData) => {
             throw new Error('Usuario ou email existente')
         }
 
+        
         const newUser = await User.create({username, email, password});
-        if(newUser.username !== '') {
-            return  newUser 
-        }else {
-            throw new Error('deu ruim')
-        }
+        return newUser
         
     } catch(err) {
         return { error: 'Erro ao registrar: ' + err.message }
@@ -29,5 +36,6 @@ const registerUser = async (userData) => {
 
 
 module.exports = {
-    registerUser
+    registerUser,
+    getAllUsers
 };

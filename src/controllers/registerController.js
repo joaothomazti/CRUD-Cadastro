@@ -1,16 +1,29 @@
 const registerModel = require('../models/registerModel');
-const registerValidation = require('../middlewares/validationMiddlewares')
+const middlewares = require('../middlewares/validationMiddlewares')
 
+
+const getAllUsers = async (req, res) => {
+    try{
+        const getAllUsers = await registerModel.getAllUsers(req.body)       
+        if(getAllUsers.length === 0) {
+            return res.status(200).json({error: 'Nao existe usuarios cadastrados'})
+        }
+        return res.status(200).json(getAllUsers)
+    } catch(err) {
+        return res.stauts(500).json({error: 'Erro interno do servidor' + err.message})
+    }
+        
+}
 
 const registerUser = async (req, res) => {
     try{
-        registerValidation(req, res, async () => {
+        middlewares.registerValidation(req, res, async () => {
             const registerUser = await registerModel.registerUser(req.body);
             return res.status(201).json(registerUser)
             
         })
     }catch(err) {
-        return res.status(500).json({error: 'Erro interno do servidor'})
+        return res.status(500).json({error: 'Erro interno do servidor' + err.message})
     }
     
 }
@@ -19,5 +32,6 @@ const registerUser = async (req, res) => {
 
 
 module.exports = {
-    registerUser
+    registerUser,
+    getAllUsers
 }

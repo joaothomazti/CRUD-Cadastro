@@ -10,4 +10,8 @@ const registerValidation = (req, res, next) => {
 }
 
 
-module.exports = registerValidation
+module.exports ={
+    registerValidation
+} 
+
+
