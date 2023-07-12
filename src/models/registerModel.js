@@ -46,9 +46,33 @@ const deleteUser = async (id) => {
     }
 }
 
+const alterUser = async (id, username) => {
+
+    try {   
+         await User.update({
+            username: username, 
+        },
+        {
+            where: {id : id},
+            // returning: true
+        })
+
+        const updatedUser = await User.findOne({where: {id: id}})
+
+        if(!updatedUser){
+            return null
+        }
+        return updatedUser.username
+        
+    } catch(err) {
+        return {error: 'Erro ao alterar: ' + err.message}
+    }
+}
+
 
 module.exports = {
     registerUser,
     getAllUsers,
-    deleteUser
+    deleteUser,
+    alterUser
 };

@@ -46,11 +46,24 @@ const deleteUser = async (req, res) => {
     
 }
 
+const alterUser = async (req, res) => {
+    const {id} = req.params
+    const {username} = req.body
+
+    const updatedUser = await registerModel.alterUser(id, username)
+
+    if(!updatedUser){
+        return res.status(400).json({error: 'Não foi possivel encontrar o id informado'})
+    }
+    return res.status(200).json({ username: updatedUser });
+}
+
 
 
 
 module.exports = {
     registerUser,
     getAllUsers,
-    deleteUser
+    deleteUser,
+    alterUser
 }
