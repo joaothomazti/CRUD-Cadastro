@@ -2,6 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const registerController = require('./controllers/registerController');
+const middlewares = require('./middlewares/validationMiddlewares')
 
 
 
@@ -10,7 +11,7 @@ router.get('/register', registerController.getAllUsers)
 
 
 //Criar novo usuario
-router.post('/register', registerController.registerUser);
+router.post('/register',  middlewares.registerValidation, registerController.registerUser);
 
 //Deleta um usuario
 

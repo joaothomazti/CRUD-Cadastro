@@ -16,12 +16,10 @@ const getAllUsers = async (req, res) => {
 }
 
 const registerUser = async (req, res) => {
-    try{
-        middlewares.registerValidation(req, res, async () => {
+    try{     
             const registerUser = await registerModel.registerUser(req.body);
             return res.status(201).json(registerUser)
             
-        })
     }catch(err) {
         return res.status(500).json({error: 'Erro interno do servidor' + err.message})
     }
@@ -40,22 +38,26 @@ const deleteUser = async (req, res) => {
         return res.status(200).json({message: 'Usuario deletado com sucesso'});
 
     } catch (err) {
-
         return res.status(500).json({error: 'Erro interno do servidor ' + err.message})
     }
     
 }
 
 const alterUser = async (req, res) => {
-    const {id} = req.params
-    const {username} = req.body
-
-    const updatedUser = await registerModel.alterUser(id, username)
-
-    if(!updatedUser){
-        return res.status(400).json({error: 'Não foi possivel encontrar o id informado'})
+    try{
+        const {id} = req.params
+        const {username} = req.body
+    
+        const updatedUser = await registerModel.alterUser(id, username)
+    
+        if(!updatedUser){
+            return res.status(400).json({error: 'Não foi possivel encontrar o id informado'})
+        }
+        return res.status(200).json({ username: updatedUser });
+    }catch(err) {
+        return res.status(500).json({error: 'Erro interno do servidor ' + err.message})
     }
-    return res.status(200).json({ username: updatedUser });
+   
 }
 
 
