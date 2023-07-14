@@ -18,7 +18,6 @@ router.post('/register',  middlewares.registerValidation, registerController.reg
 router.delete('/register/:id', registerController.deleteUser)
 
 //Alterar um dado do usuario
-
 router.put('/register/:id', registerController.alterUser)
 
 
