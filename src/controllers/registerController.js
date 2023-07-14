@@ -1,5 +1,4 @@
 const registerModel = require('../models/registerModel');
-const middlewares = require('../middlewares/validationMiddlewares')
 
 
 const getAllUsers = async (req, res) => {
