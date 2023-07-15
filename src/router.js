@@ -9,16 +9,20 @@ const middlewares = require('./middlewares/validationMiddlewares')
 //Busca Todos Usuarios cadastrados
 router.get('/register', registerController.getAllUsers)
 
+//Busca um usuario pelo ID
+router.get('/register/:id', middlewares.existId, registerController.getUserId)
 
 //Criar novo usuario
-router.post('/register',  middlewares.registerValidation, registerController.registerUser);
+router.post('/register',  middlewares.registerValidationSchema, middlewares.validationUserAndEmail, registerController.registerUser);
 
 //Deleta um usuario
 
-router.delete('/register/:id', registerController.deleteUser)
+router.delete('/register/:id', middlewares.existId, registerController.deleteUser)
 
 //Alterar um dado do usuario
-router.put('/register/:id', registerController.alterUser)
+router.put('/register/:id',  middlewares.existId, registerController.alterUser)
+
+
 
 
 module.exports = router;
